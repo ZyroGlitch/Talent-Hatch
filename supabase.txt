@@ -1,0 +1,5 @@
+## Project Credentials
+Project Name: TalentHatch
+Password: BenTalentHatch
+Public Key: sb_publishable_XbL51WWd2IB5T3CrS81DdA_bu-sCH00
+Secret Key: sb_secret_oVIFNeUepaSJdfMhyQKJVQ_D0FdNCrm
