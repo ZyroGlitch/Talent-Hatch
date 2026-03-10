@@ -27,24 +27,24 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-20 p-4 transition-all duration-300 ease-in-out ${scrolled ? "bg-cyan-700" : "bg-transparent"
+            className={`fixed top-0 left-0 w-full z-20 p-4 transition-all duration-300 ease-in-out ${scrolled ? "bg-cyan-700 shadow-lg" : "bg-transparent"
                 }`}
         >
             <div className="flex justify-between items-center px-8">
                 <div
-                    className={`flex items-start gap-2 font-bold drop-shadow-lg cursor-pointer ${scrolled ? "text-white" : "text-cyan-300"}`}>
-                    <BsBagHeartFill className="text-xl" /> Talent Hatch
+                    className={`flex items-center font-bold drop-shadow-lg cursor-pointer ${scrolled ? "text-white" : "text-cyan-300"}`}>
+                    <img src="logo.png" alt="logo" className="object-contain w-fit h-[35px]" />
+                    <p>Talent Hatch</p>
                 </div>
                 <div className="flex items-center gap-6">
                     <div className="space-x-6">
                         <a href="#home" className="text-white drop-shadow-lg hover:text-gray-200">Home</a>
                         <a href="#career" className="text-white drop-shadow-lg hover:text-gray-200">Career</a>
-                        <a href="#services" className="text-white drop-shadow-lg hover:text-gray-200">About Us</a>
-                        <a href="#contact" className="text-white drop-shadow-lg hover:text-gray-200">Why Join Us</a>
-                        <a href="#contact" className="text-white drop-shadow-lg hover:text-gray-200">FAQs</a>
+                        <a href="#aboutUs" className="text-white drop-shadow-lg hover:text-gray-200">About Us</a>
+                        <a href="#joinUs" className="text-white drop-shadow-lg hover:text-gray-200">Why Join Us</a>
                     </div>
                     <Link
-                        href="#"
+                        to="/form"
                         className={`text-white border border-1 rounded-full shadow px-5 py-1.5 ${scrolled ? 'border-white hover:border-cyan-500 hover:bg-cyan-500' : ' border-cyan-500 hover:bg-cyan-500  hover:border-cyan-500'}`}
                     >
                         Apply Now
