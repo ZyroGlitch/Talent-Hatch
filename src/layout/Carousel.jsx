@@ -51,15 +51,15 @@ export default function Carousel({ slides }) {
                         {/* Centered Text Overlay */}
                         {
                             index === 0 && (
-                                <div className="absolute inset-0 flex flex-col justify-start items-center text-center z-10 pt-[30vh]">
-                                    <h2 className="text-[55px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        Shop, Sell, and Succeed.
+                                <div className="absolute inset-0 flex flex-col justify-start items-center text-center z-10 pt-[35vh]">
+                                    <h2 className="text-[32px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
+                                        Unlock Your Career Potential.
                                     </h2>
                                     <h2 className="text-[60px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        UM Marketplace,
+                                        Talent Hatch,
                                     </h2>
                                     <h4 className="text-[32px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        Your Campus Marketplace
+                                        Where Opportunities Await
                                     </h4>
 
                                     <button className="flex items-center gap-2 bg-cyan-500 text-white mt-8 px-6 py-3 rounded text-lg font-semibold hover:bg-cyan-600">
@@ -72,13 +72,13 @@ export default function Carousel({ slides }) {
                             index === 1 && (
                                 <div className="absolute inset-0 flex flex-col justify-start items-center text-center z-10 pt-[35vh]">
                                     <h2 className="text-[36px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        Start Your Business, Build Your Mindset.
+                                        Discover the Power of Talent Hatch.
                                     </h2>
                                     <h2 className="text-[60px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        UM Marketplace,
+                                        Insightful Growth,
                                     </h2>
                                     <h4 className="text-[32px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        Where Learning Meets Success.
+                                        Empowering Your Career Journey
                                     </h4>
 
                                     <button className="flex items-center gap-2 bg-cyan-500 text-white mt-8 px-6 py-3 rounded text-lg font-semibold hover:bg-cyan-600">
@@ -89,15 +89,15 @@ export default function Carousel({ slides }) {
                         }
                         {
                             index === 2 && (
-                                <div className="absolute inset-0 flex flex-col justify-start items-center text-center z-10 pt-[33vh]">
+                                <div className="absolute inset-0 flex flex-col justify-start items-center text-center z-10 pt-[35vh]">
                                     <h2 className="text-[36px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        Your Business, Network, And Growth.
+                                        Begin Your Path with Talent Hatch.
                                     </h2>
                                     <h2 className="text-[60px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        UM Marketplace,
+                                        A New Journey,
                                     </h2>
                                     <h4 className="text-[32px] font-bold text-white px-6 max-w-[70%] uppercase leading-tight">
-                                        Where Entrepreneurs Thrive Together.
+                                        Start Today with Endless Opportunities
                                     </h4>
 
                                     <button className="flex items-center gap-2 bg-cyan-500 text-white mt-8 px-6 py-3 rounded text-lg font-semibold hover:bg-cyan-600">

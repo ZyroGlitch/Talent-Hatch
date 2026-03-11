@@ -50,7 +50,7 @@ export default function Login() {
             }
 
             // redirect to the dashboard page
-            navigate('/dashboard');
+            navigate('/admin/dashboard');
         } else {
             setError('Invalid username or password.');
         }
