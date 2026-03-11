@@ -7,6 +7,9 @@ import Login from './Pages/Admin/Login';
 import Dashboard from './Pages/Admin/Dashboard';
 import Form from './Pages/Client/Form';
 import ChatBot from './Pages/Client/Chatbot';
+import Jobs from './Pages/Admin/layout/Jobs';
+import AddJob from './Pages/Admin/layout/AddJob';
+import Monitor from './Pages/Admin/layout/Monitor';
 
 
 const Layout = () => {
@@ -16,9 +19,8 @@ const Layout = () => {
     <>
       {/* Conditionally render Navbar based on the current path */}
       {
-        location.pathname !== '/admin' &&
-        location.pathname !== '/dashboard' &&
-        location.pathname !== '/form'
+        !location.pathname.startsWith('/admin')
+        && location.pathname !== '/form'
         && <Navbar />
       }
     </>
@@ -35,9 +37,12 @@ function App() {
         <Route path="/form" element={<Form />} />
 
         {/* Admin Route */}
-        <Route path="/chatbot" element={<ChatBot />} />
         <Route path="/admin" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<Dashboard />}>
+          <Route path="/admin/dashboard" element={<Monitor />} />
+          <Route path="/admin/jobs" element={<Jobs />} />
+          <Route path="/admin/add-job" element={<AddJob />} />
+        </Route>
       </Routes>
     </Router>
   );

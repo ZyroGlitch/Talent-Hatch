@@ -17,9 +17,11 @@ import {
 } from "@/components/ui/accordion"
 import { Input } from '@/components/ui/input';
 import supabase from '@/supabase-client';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
     const [openChatBot, setOpenChatBot] = React.useState(false);
+    const [activeLegalModal, setActiveLegalModal] = useState(null);
     const initialGreeting = 'Hi! I\'m Talent Hatch AI. How can I help you today?';
 
     const toggleChatBot = () => {
@@ -59,7 +61,7 @@ export default function Home() {
         setLoading(true); // Show loading animation
 
         try {
-            const response = await fetch('https://gonfrecs.app.n8n.cloud/webhook-test/talent-hatch-chatbot', {
+            const response = await fetch('https://henrytaizon.app.n8n.cloud/webhook/talent-hatch-chatbot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,15 +109,19 @@ export default function Home() {
         toggleChatBot(); // Close the chatbot
     };
 
+    const openLegalModal = (modalKey) => {
+        setActiveLegalModal(modalKey);
+    };
 
-
-
+    const closeLegalModal = () => {
+        setActiveLegalModal(null);
+    };
 
 
     const images = [
-        { src: '/carousel/slide1.jpg', label: 'Shop, Sell, and Succeed – UM Marketplace, Your Campus Marketplace' },
-        { src: '/carousel/slide2.jpg', label: 'Explore the Best Deals' },
-        { src: '/carousel/slide3.jpg', label: 'Shop with Confidence' },
+        { src: '/carousel/slide1.jpg', label: 'Unlock Your Next Career Opportunity' },
+        { src: '/carousel/slide2.jpg', label: 'Insights for a Brighter Future' },
+        { src: '/carousel/slide3.jpg', label: 'Embark on a New Journey Today' },
     ];
 
     const benefits = [
@@ -230,136 +236,149 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-3 gap-16">
-                    {
-                        careerData.map((career) => (
-                            career.job_type === 'Voice' && (
-                                <div className="min-h-[200px]" key={career.id}>
-                                    <h4 className="text-2xl text-cyan-600 font-bold mb-4">{career.job_type}</h4>
-                                    <Accordion type="single" collapsible defaultValue="item-1">
-                                        <AccordionItem value="item-1" className="bg-gray-200 drop-shadow-sm">
-                                            <AccordionTrigger
-                                                className="font-bold text-md hover:bg-cyan-700 hover:text-white hover:no-underline px-4"
-                                            >
-                                                {career.name}
-                                            </AccordionTrigger>
-                                            <AccordionContent className='px-4 mt-4'>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Description</h6>
-                                                    <p className="text-sm text-justify">{career.description}</p>
-                                                </div>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Responsibilities</h6>
-                                                    <ul className="list-disc pl-6 space-y-2">
-                                                        {
-                                                            (Array.isArray(career.responsibilities) ? career.responsibilities : []).map((responsibility, index) => (
-                                                                <li key={index}>{responsibility}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Requirements:</h6>
-                                                    <ul className="list-disc pl-6 space-y-2">
-                                                        {
-                                                            (Array.isArray(career.requirements) ? career.requirements : []).map((requirement, index) => (
-                                                                <li key={index}>{requirement}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    </Accordion>
-                                </div>
-                            )
+                    {/* Voice */}
+                    <div>
+                        <h4 className="text-2xl text-cyan-600 font-bold mb-4">Voice</h4>
+                        {
+                            careerData.map((career) => (
+                                career.job_type === 'Voice' && (
+                                    <div className="min-h-fit mb-4" key={career.id}>
+                                        <Accordion type="single" collapsible>
+                                            <AccordionItem value="item-1" className="bg-gray-200 drop-shadow-sm">
+                                                <AccordionTrigger
+                                                    className="font-bold text-md hover:bg-cyan-700 hover:text-white hover:no-underline px-4"
+                                                >
+                                                    {career.name}
+                                                </AccordionTrigger>
+                                                <AccordionContent className='px-4 mt-4'>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Description</h6>
+                                                        <p className="text-sm text-justify">{career.description}</p>
+                                                    </div>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Responsibilities</h6>
+                                                        <ul className="list-disc pl-6 space-y-2">
+                                                            {
+                                                                (Array.isArray(career.responsibilities) ? career.responsibilities : []).map((responsibility, index) => (
+                                                                    <li key={index}>{responsibility}</li>
+                                                                ))
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Requirements:</h6>
+                                                        <ul className="list-disc pl-6 space-y-2">
+                                                            {
+                                                                (Array.isArray(career.requirements) ? career.requirements : []).map((requirement, index) => (
+                                                                    <li key={index}>{requirement}</li>
+                                                                ))
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        </Accordion>
+                                    </div>
+                                )
+                            ))
+                        }
+                    </div>
 
-                            ||
+                    {/* Mixed */}
+                    <div>
+                        <h4 className="text-2xl text-cyan-600 font-bold mb-4">Mixed</h4>
+                        {
+                            careerData.map((career) => (
+                                career.job_type === 'Mixed' && (
+                                    <div className="min-h-fit mb-4" key={career.id}>
+                                        <Accordion type="single" collapsible>
+                                            <AccordionItem value="item-1" className="bg-gray-200 drop-shadow-sm">
+                                                <AccordionTrigger
+                                                    className="font-bold text-md hover:bg-cyan-700 hover:text-white hover:no-underline px-4"
+                                                >
+                                                    {career.name}
+                                                </AccordionTrigger>
+                                                <AccordionContent className='px-4 mt-4'>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Description</h6>
+                                                        <p className="text-sm text-justify">{career.description}</p>
+                                                    </div>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Responsibilities</h6>
+                                                        <ul className="list-disc pl-6 space-y-2">
+                                                            {
+                                                                (Array.isArray(career.responsibilities) ? career.responsibilities : []).map((responsibility, index) => (
+                                                                    <li key={index}>{responsibility}</li>
+                                                                ))
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Requirements:</h6>
+                                                        <ul className="list-disc pl-6 space-y-2">
+                                                            {
+                                                                (Array.isArray(career.requirements) ? career.requirements : []).map((requirement, index) => (
+                                                                    <li key={index}>{requirement}</li>
+                                                                ))
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        </Accordion>
+                                    </div>
+                                )
+                            ))
+                        }
+                    </div>
 
-                            career.job_type === 'Mixed' && (
-                                <div className="min-h-[200px]" key={career.id}>
-                                    <h4 className="text-2xl text-cyan-600 font-bold mb-4">{career.job_type}</h4>
-                                    <Accordion type="single" collapsible defaultValue="item-1">
-                                        <AccordionItem value="item-1" className="bg-gray-200 drop-shadow-sm">
-                                            <AccordionTrigger
-                                                className="font-bold text-md hover:bg-cyan-700 hover:text-white hover:no-underline px-4"
-                                            >
-                                                {career.name}
-                                            </AccordionTrigger>
-                                            <AccordionContent className='px-4 mt-4'>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Description</h6>
-                                                    <p className="text-sm text-justify">{career.description}</p>
-                                                </div>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Responsibilities</h6>
-                                                    <ul className="list-disc pl-6 space-y-2">
-                                                        {
-                                                            (Array.isArray(career.responsibilities) ? career.responsibilities : []).map((responsibility, index) => (
-                                                                <li key={index}>{responsibility}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Requirements:</h6>
-                                                    <ul className="list-disc pl-6 space-y-2">
-                                                        {
-                                                            (Array.isArray(career.requirements) ? career.requirements : []).map((requirement, index) => (
-                                                                <li key={index}>{requirement}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    </Accordion>
-                                </div>
-                            )
-
-                            ||
-
-                            career.job_type === 'Non-Voice' && (
-                                <div className="min-h-[200px]" key={career.id}>
-                                    <h4 className="text-2xl text-cyan-600 font-bold mb-4">{career.job_type}</h4>
-                                    <Accordion type="single" collapsible defaultValue="item-1">
-                                        <AccordionItem value="item-1" className="bg-gray-200 drop-shadow-sm">
-                                            <AccordionTrigger
-                                                className="font-bold text-md hover:bg-cyan-700 hover:text-white hover:no-underline px-4"
-                                            >
-                                                {career.name}
-                                            </AccordionTrigger>
-                                            <AccordionContent className='px-4 mt-4'>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Description</h6>
-                                                    <p className="text-sm text-justify">{career.description}</p>
-                                                </div>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Responsibilities</h6>
-                                                    <ul className="list-disc pl-6 space-y-2">
-                                                        {
-                                                            (Array.isArray(career.responsibilities) ? career.responsibilities : []).map((responsibility, index) => (
-                                                                <li key={index}>{responsibility}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                                <div className="mb-4">
-                                                    <h6 className="text-md font-bold mb-2">Requirements:</h6>
-                                                    <ul className="list-disc pl-6 space-y-2">
-                                                        {
-                                                            (Array.isArray(career.requirements) ? career.requirements : []).map((requirement, index) => (
-                                                                <li key={index}>{requirement}</li>
-                                                            ))
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            </AccordionContent>
-                                        </AccordionItem>
-                                    </Accordion>
-                                </div>
-                            )
-                        ))
-                    }
+                    {/* Non-Voice */}
+                    <div>
+                        <h4 className="text-2xl text-cyan-600 font-bold mb-4">Non-Voice</h4>
+                        {
+                            careerData.map((career) => (
+                                career.job_type === 'Non-Voice' && (
+                                    <div className="min-h-fit mb-4" key={career.id}>
+                                        <Accordion type="single" collapsible>
+                                            <AccordionItem value="item-1" className="bg-gray-200 drop-shadow-sm">
+                                                <AccordionTrigger
+                                                    className="font-bold text-md hover:bg-cyan-700 hover:text-white hover:no-underline px-4"
+                                                >
+                                                    {career.name}
+                                                </AccordionTrigger>
+                                                <AccordionContent className='px-4 mt-4'>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Description</h6>
+                                                        <p className="text-sm text-justify">{career.description}</p>
+                                                    </div>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Responsibilities</h6>
+                                                        <ul className="list-disc pl-6 space-y-2">
+                                                            {
+                                                                (Array.isArray(career.responsibilities) ? career.responsibilities : []).map((responsibility, index) => (
+                                                                    <li key={index}>{responsibility}</li>
+                                                                ))
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                    <div className="mb-4">
+                                                        <h6 className="text-md font-bold mb-2">Requirements:</h6>
+                                                        <ul className="list-disc pl-6 space-y-2">
+                                                            {
+                                                                (Array.isArray(career.requirements) ? career.requirements : []).map((requirement, index) => (
+                                                                    <li key={index}>{requirement}</li>
+                                                                ))
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        </Accordion>
+                                    </div>
+                                )
+                            ))
+                        }
+                    </div>
                 </div>
             </section>
 
@@ -575,21 +594,21 @@ export default function Home() {
                         <h6 className="text-md font-bold mb-4">Company</h6>
 
                         <ul className='flex flex-col text-sm gap-4'>
-                            <a href="#">
+                            <a href="#home">
                                 <li>Home</li>
                             </a>
-                            <a href="#">
+                            <a href="#career">
                                 <li>Careers</li>
                             </a>
-                            <a href="#">
+                            <a href="#aboutUs">
                                 <li>About Us</li>
                             </a>
-                            <a href="#">
+                            <a href="#joinUs">
                                 <li>Why Join Us</li>
                             </a>
-                            <a href="#">
+                            <Link to="/form">
                                 <li>Apply Now</li>
-                            </a>
+                            </Link>
                         </ul>
                     </div>
 
@@ -598,15 +617,33 @@ export default function Home() {
                         <h6 className="text-md font-bold mb-4">Legal</h6>
 
                         <ul className='flex flex-col text-sm gap-4'>
-                            <a href="#">
-                                <li>Terms of service</li>
-                            </a>
-                            <a href="#">
-                                <li>Privacy policy</li>
-                            </a>
-                            <a href="#">
-                                <li>License</li>
-                            </a>
+                            <li>
+                                <button
+                                    type="button"
+                                    className="hover:text-cyan-700 transition-colors duration-200"
+                                    onClick={() => openLegalModal('terms')}
+                                >
+                                    Terms of service
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    type="button"
+                                    className="hover:text-cyan-700 transition-colors duration-200"
+                                    onClick={() => openLegalModal('privacy')}
+                                >
+                                    Privacy policy
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    type="button"
+                                    className="hover:text-cyan-700 transition-colors duration-200"
+                                    onClick={() => openLegalModal('license')}
+                                >
+                                    License
+                                </button>
+                            </li>
                         </ul>
                     </div>
 
@@ -695,6 +732,63 @@ export default function Home() {
                         className='text-6xl text-white bg-cyan-500 rounded-full shadow-lg p-4 fixed bottom-4 right-4 z-20 cursor-pointer animate-bounce'
                         onClick={toggleChatBot}
                     />
+                )
+            }
+
+            {/* TERMS OF SERVICE MODAL */}
+            {
+                activeLegalModal === 'terms' && (
+                    <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/60 px-4">
+                        <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-xl font-bold text-cyan-700">Terms of Service</h3>
+                                <Button onClick={closeLegalModal} className="bg-cyan-600 hover:bg-cyan-700">Close</Button>
+                            </div>
+                            <div className="text-sm text-slate-700 space-y-3 max-h-[60vh] overflow-y-auto text-justify pr-2">
+                                <p>By using Talent Hatch, you agree to use our platform for lawful purposes only and to provide accurate information when applying for opportunities.</p>
+                                <p>We may update features, job listings, or platform content at any time. Continued use of this site means you accept the latest terms and policies.</p>
+                                <p>Talent Hatch reserves the right to suspend access if there is misuse, fraud, or any activity that may harm our users, partners, or platform operations.</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            {/* PRIVACY POLICY MODAL */}
+            {
+                activeLegalModal === 'privacy' && (
+                    <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/60 px-4">
+                        <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-xl font-bold text-cyan-700">Privacy Policy</h3>
+                                <Button onClick={closeLegalModal} className="bg-cyan-600 hover:bg-cyan-700">Close</Button>
+                            </div>
+                            <div className="text-sm text-slate-700 space-y-3 max-h-[60vh] overflow-y-auto text-justify pr-2">
+                                <p>We collect personal details you submit, such as name, email, and career information, to process applications and improve your experience on Talent Hatch.</p>
+                                <p>Your data is stored securely and only shared with authorized teams or trusted services required for recruitment, communications, and technical operations.</p>
+                                <p>You may request access, correction, or deletion of your personal data by contacting our support team through official Talent Hatch channels.</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            {/* LICENSE MODAL */}
+            {
+                activeLegalModal === 'license' && (
+                    <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/60 px-4">
+                        <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-xl font-bold text-cyan-700">License</h3>
+                                <Button onClick={closeLegalModal} className="bg-cyan-600 hover:bg-cyan-700">Close</Button>
+                            </div>
+                            <div className="text-sm text-slate-700 space-y-3 max-h-[60vh] overflow-y-auto text-justify pr-2">
+                                <p>All website content, branding, visuals, and original materials on Talent Hatch are protected and are intended for personal and non-commercial use.</p>
+                                <p>You may not copy, redistribute, modify, or republish any Talent Hatch content without prior written permission from the Talent Hatch team.</p>
+                                <p>Third-party logos, icons, or libraries remain the property of their respective owners and are subject to their own licensing terms.</p>
+                            </div>
+                        </div>
+                    </div>
                 )
             }
         </div >
