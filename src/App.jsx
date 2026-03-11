@@ -6,7 +6,6 @@ import './index.css';
 import Login from './Pages/Admin/Login';
 import Dashboard from './Pages/Admin/Dashboard';
 import Form from './Pages/Client/Form';
-import ChatBot from './Pages/Client/Chatbot';
 import Jobs from './Pages/Admin/layout/Jobs';
 import AddJob from './Pages/Admin/layout/AddJob';
 import Monitor from './Pages/Admin/layout/Monitor';
