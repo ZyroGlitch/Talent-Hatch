@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -29,6 +29,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import supabase from '@/supabase-client'
+import { List } from 'lucide-react'
 
 export default function Form() {
     const [data, setData] = useState({
@@ -69,6 +71,23 @@ export default function Form() {
             } catch (error) {
                 console.error('Error submitting form:', error);
             }
+        }
+    }
+
+    // Fetch All Job List from Supabase
+    const [jobs, setJobs] = useState([]);
+
+    useEffect(() => {
+        jobList();
+    }, []);
+
+    const jobList = async () => {
+        const { data, error } = await supabase.from('career_tbl').select('name');
+
+        if (error) {
+            console.error('Error fetching job list in supabase:', error);
+        } else {
+            setJobs(data);
         }
     }
 
@@ -154,9 +173,13 @@ export default function Form() {
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                        <SelectItem value="Appointment Setter">Appointment Setter</SelectItem>
-                                        <SelectItem value="Bookkeeper">Bookkeeper</SelectItem>
-                                        <SelectItem value="Graphic Designer">Graphic Designer</SelectItem>
+                                        {
+                                            jobs.map((job, index) => (
+                                                <SelectItem key={index} value={job.name}>
+                                                    {job.name}
+                                                </SelectItem>
+                                            ))
+                                        }
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>

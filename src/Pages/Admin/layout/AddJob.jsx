@@ -16,6 +16,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import supabase from '@/supabase-client'
 
 export default function AddJob() {
@@ -26,6 +35,7 @@ export default function AddJob() {
     const [requirements, setRequirements] = useState([''])
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [statusMessage, setStatusMessage] = useState('')
+    const [successOpen, setSuccessOpen] = useState(false)
 
     const handleDynamicFieldChange = (setter, index, value) => {
         setter((prev) => {
@@ -93,8 +103,9 @@ export default function AddJob() {
             return
         }
 
-        setStatusMessage('Job saved successfully.')
+        setStatusMessage('')
         resetForm()
+        setSuccessOpen(true)
         setIsSubmitting(false)
     }
 
@@ -226,6 +237,20 @@ export default function AddJob() {
                     </CardContent>
                 </Card>
             </div>
+
+            <AlertDialog open={successOpen} onOpenChange={setSuccessOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Success</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            New job added successfully.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogAction className="bg-cyan-600 hover:bg-cyan-700">OK</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </>
     )
 }
