@@ -25,7 +25,7 @@ Before running the project, ensure you have:
 - Open GitBash Command, then run this code below:
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/ZyroGlitch/Talent-Hatch.git
 cd your-repo-name
 ```
 
